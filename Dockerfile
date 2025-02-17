@@ -6,4 +6,4 @@ COPY . .
 RUN yarn install
 
 EXPOSE 3030
-CMD ["yarn", "run", "start"]
+CMD ["yarn", "run", "start", "--host", "0.0.0.0", "--disable-host-check"]
