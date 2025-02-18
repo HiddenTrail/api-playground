@@ -1,6 +1,5 @@
 module.exports = {
   'title': 'Category Schema',
-  '$schema': 'http://json-schema.org/draft-04/schema#',
   'type': 'object',
   'required': [ 'id', 'name' ],
   'additionalProperties': false,

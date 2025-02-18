@@ -5,8 +5,16 @@ const request = require('request');
 const app = require('../src/app');
 
 describe('Feathers application tests', function () {
+  const port = 3030;
+  // Mock window.location.origin for Node environment
+  global.window = {
+    location: {
+      origin: 'http://localhost'
+    }
+  };
+
   before(function (done) {
-    this.server = app.listen(3030);
+    this.server = app.listen(port);
     this.server.once('listening', () => done());
   });
 
@@ -15,7 +23,7 @@ describe('Feathers application tests', function () {
   });
 
   it('starts and shows the index page', function (done) {
-    request('http://localhost:3030', function (err, res, body) {
+    request(`${window.location.origin}:${port}`, function (err, res, body) {
       assert.ok(body.indexOf('<title>') !== -1);
       done(err);
     });
@@ -24,7 +32,7 @@ describe('Feathers application tests', function () {
   describe('404', function () {
     it('shows a 404 HTML page', function (done) {
       request({
-        url: 'http://localhost:3030/path/to/nowhere',
+        url: `${window.location.origin}:${port}/path/to/nowhere`,
         headers: {
           'Accept': 'text/html'
         }
@@ -37,7 +45,7 @@ describe('Feathers application tests', function () {
 
     it('shows a 404 JSON error without stack trace', function (done) {
       request({
-        url: 'http://localhost:3030/path/to/nowhere',
+        url: `${window.location.origin}:${port}/path/to/nowhere`,
         json: true
       }, function (err, res, body) {
         assert.equal(res.statusCode, 404);

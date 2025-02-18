@@ -1,6 +1,5 @@
 module.exports = {
   'title': 'Product Schema',
-  '$schema': 'http://json-schema.org/draft-04/schema#',
   'type': 'object',
   'required': [ 'name', 'type', 'upc', 'description', 'model' ],
   'additionalProperties': false,
